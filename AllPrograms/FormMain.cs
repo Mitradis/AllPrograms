@@ -243,8 +243,9 @@ namespace AllPrograms
             newPictureBox.Location = new System.Drawing.Point(iconPosX, iconPosY);
             newPictureBox.Name = "NewPictureBox_" + number.ToString();
             newPictureBox.Size = new System.Drawing.Size(32, 32);
+            newPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
             newPictureBox.Tag = number;
-            newPictureBox.Click += clickItem;
+            newPictureBox.DoubleClick += clickItem;
             if (parseLine[0][0].ToString() == "F")
             {
                 Image image = iconFromFile(appLaunchPath[appLaunchPath.Count - 1]);
@@ -345,7 +346,7 @@ namespace AllPrograms
                 }
                 catch
                 {
-                    MessageBox.Show("Не удалнось запустить: " + path);
+                    MessageBox.Show("Не удалось запустить: " + path);
                 }
             }
             else if (Directory.Exists(path))
