@@ -55,6 +55,11 @@ namespace AllPrograms
             allFolders = null;
             if (File.Exists(appINI))
             {
+                string titleName = FuncParser.stringRead(appINI, "General", "WindowTitleName");
+                if (titleName.Length > 0)
+                {
+                    Text = titleName;
+                }
                 int wLeft = FuncParser.intRead(appINI, "General", "POS_WindowLeft");
                 int wTop = FuncParser.intRead(appINI, "General", "POS_WindowTop");
                 if (wLeft < 0 || wTop < 0)
@@ -116,6 +121,7 @@ namespace AllPrograms
                 "[Files]",
                 "",
                 "[General]",
+                "WindowTitleName=",
                 "POS_WindowTop=100",
                 "POS_WindowLeft=100",
                 "TotalFiles=0",
