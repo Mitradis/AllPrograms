@@ -56,7 +56,7 @@ namespace AllPrograms
             if (File.Exists(appINI))
             {
                 string titleName = FuncParser.stringRead(appINI, "General", "WindowTitleName");
-                if (titleName.Length > 0)
+                if (titleName != null)
                 {
                     Text = titleName;
                 }
