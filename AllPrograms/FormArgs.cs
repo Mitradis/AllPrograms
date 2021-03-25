@@ -16,6 +16,10 @@ namespace AllPrograms
                 FormMain.newAppArgs = textBox1.Text;
                 DialogResult = DialogResult.OK;
             }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
     }
 }

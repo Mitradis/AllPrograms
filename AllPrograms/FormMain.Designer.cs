@@ -4,6 +4,7 @@
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_Close;
         private System.Windows.Forms.Button button_Minimize;
         private System.Windows.Forms.Button button_Widget;
@@ -32,6 +33,7 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,9 +110,9 @@
             this.buttonAdd.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAdd.Location = new System.Drawing.Point(43, 12);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(87, 25);
+            this.buttonAdd.Size = new System.Drawing.Size(25, 25);
             this.buttonAdd.TabIndex = 3;
-            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.Text = "+";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Visible = false;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -119,14 +121,14 @@
             // 
             this.numericUpDown1.Enabled = false;
             this.numericUpDown1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown1.Location = new System.Drawing.Point(136, 14);
+            this.numericUpDown1.Location = new System.Drawing.Point(74, 14);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             99,
             0,
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            3,
+            2,
             0,
             0,
             0});
@@ -150,6 +152,21 @@
             // 
             this.folderBrowserDialog1.Description = "Выберите папку которую хотели бы видеть в качестве ярлыка.";
             // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(93, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(336, 25);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Shortcut Manager";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Visible = false;
+            this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.label2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,6 +180,7 @@
             this.Controls.Add(this.button_Widget);
             this.Controls.Add(this.button_Minimize);
             this.Controls.Add(this.button_Close);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

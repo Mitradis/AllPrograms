@@ -39,6 +39,7 @@ namespace AllPrograms
         bool windgetOpen = false;
         const int CS_DBLCLKS = 0x8;
         const int WS_MINIMIZEBOX = 0x20000;
+        Label label = null;
 
         public FormMain()
         {
@@ -59,6 +60,7 @@ namespace AllPrograms
                 if (titleName != null)
                 {
                     Text = titleName;
+                    label2.Text = titleName;
                 }
                 int wLeft = FuncParser.intRead(appINI, "General", "POS_WindowLeft");
                 int wTop = FuncParser.intRead(appINI, "General", "POS_WindowTop");
@@ -121,7 +123,8 @@ namespace AllPrograms
                 "[Files]",
                 "",
                 "[General]",
-                "WindowTitleName=",
+                "WindowTitleName=Shortcut Manager",
+                "ShowTitle=true",
                 "POS_WindowTop=100",
                 "POS_WindowLeft=100",
                 "TotalFiles=0",
@@ -160,56 +163,64 @@ namespace AllPrograms
 
         private void buttonAdd_Click(object sender, System.EventArgs e)
         {
-            formShowDialog(new FormName());
-            DialogResult dialog = MessageBox.Show("Будет выбрана папка?", "Выбор источника", MessageBoxButtons.YesNo);
-            if (dialog == DialogResult.No)
+            Form form1 = new FormName();
+            if (form1.ShowDialog(this) == DialogResult.OK)
             {
-                DialogResult result = openFileDialog1.ShowDialog();
-                if (result == DialogResult.OK)
+                form1.Dispose();
+                DialogResult dialog = MessageBox.Show("Будет выбрана папка?", "Выбор источника", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.No)
                 {
-                    formShowDialog(new FormArgs());
-                    if (Path.GetPathRoot(pathAddSlash(Path.GetDirectoryName(openFileDialog1.FileName))) == appDisk)
+                    DialogResult result = openFileDialog1.ShowDialog();
+                    if (result == DialogResult.OK)
                     {
-                        for (int i = 0; i < separateAppPath.Count; i++)
+                        Form form2 = new FormArgs();
+                        if (form2.ShowDialog(this) == DialogResult.OK)
                         {
-                            if (openFileDialog1.FileName.IndexOf(separateAppPath[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                            form2.Dispose();
+                            if (Path.GetPathRoot(pathAddSlash(Path.GetDirectoryName(openFileDialog1.FileName))) == appDisk)
                             {
-                                openFileDialog1.FileName = openFileDialog1.FileName.Remove(0, separateAppPath[i].Length);
-                                addFileToINI("FR" + i + "|" + newAppName + "|" + openFileDialog1.FileName + "|" + newAppArgs);
-                                break;
+                                for (int i = 0; i < separateAppPath.Count; i++)
+                                {
+                                    if (openFileDialog1.FileName.IndexOf(separateAppPath[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                                    {
+                                        openFileDialog1.FileName = openFileDialog1.FileName.Remove(0, separateAppPath[i].Length);
+                                        addFileToINI("FR" + i + "|" + newAppName + "|" + openFileDialog1.FileName + "|" + newAppArgs);
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                addFileToINI("FA0|" + newAppName + "|" + openFileDialog1.FileName + "|" + newAppArgs);
                             }
                         }
                     }
-                    else
-                    {
-                        addFileToINI("FA0|" + newAppName + "|" + openFileDialog1.FileName + "|" + newAppArgs);
-                    }
                 }
-            }
-            else
-            {
-                DialogResult result = folderBrowserDialog1.ShowDialog();
-                if (result == DialogResult.OK)
+                else
                 {
-                    folderBrowserDialog1.SelectedPath = pathAddSlash(folderBrowserDialog1.SelectedPath);
-                    if (Path.GetPathRoot(folderBrowserDialog1.SelectedPath) == appDisk)
+                    DialogResult result = folderBrowserDialog1.ShowDialog();
+                    if (result == DialogResult.OK)
                     {
-                        for (int i = 0; i < separateAppPath.Count; i++)
+                        folderBrowserDialog1.SelectedPath = pathAddSlash(folderBrowserDialog1.SelectedPath);
+                        if (Path.GetPathRoot(folderBrowserDialog1.SelectedPath) == appDisk)
                         {
-                            if (folderBrowserDialog1.SelectedPath.IndexOf(separateAppPath[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                            for (int i = 0; i < separateAppPath.Count; i++)
                             {
-                                if (folderBrowserDialog1.SelectedPath != separateAppPath[i])
+                                if (folderBrowserDialog1.SelectedPath.IndexOf(separateAppPath[i], StringComparison.OrdinalIgnoreCase) >= 0)
                                 {
-                                    folderBrowserDialog1.SelectedPath = folderBrowserDialog1.SelectedPath.Remove(0, separateAppPath[i].Length);
-                                    addFileToINI("DR" + i + "|" + newAppName + "|" + folderBrowserDialog1.SelectedPath);
-                                    break;
+                                    if (folderBrowserDialog1.SelectedPath != separateAppPath[i])
+                                    {
+                                        folderBrowserDialog1.SelectedPath = folderBrowserDialog1.SelectedPath.Remove(0, separateAppPath[i].Length);
+                                        addFileToINI("DR" + i + "|" + newAppName + "|" + folderBrowserDialog1.SelectedPath);
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        addFileToINI("DA0|" + newAppName + "|" + folderBrowserDialog1.SelectedPath);
+                        else
+                        {
+                            addFileToINI("DA0|" + newAppName + "|" + folderBrowserDialog1.SelectedPath);
+                        }
                     }
                 }
             }
@@ -400,6 +411,18 @@ namespace AllPrograms
         {
             ClientSize = new System.Drawing.Size(formDefaultX + ((maxItemsOnLine - 6) * offSetX), formDefaultY);
             label1.Size = new System.Drawing.Size(formDefaultX + ((maxItemsOnLine - 6) * offSetX), formDefaultY);
+            if (FuncParser.stringRead(appINI, "General", "ShowTitle") == "true")
+            {
+                if (maxItemsOnLine >= 3)
+                {
+                    label2.Size = new System.Drawing.Size((maxItemsOnLine - 2) * offSetX, label2.Size.Height);
+                    label2.Visible = true;
+                }
+                else
+                {
+                    label2.Visible = false;
+                }
+            }
         }
 
         private void addFileToINI(string line)
@@ -468,32 +491,33 @@ namespace AllPrograms
             return path;
         }
 
-        private void formShowDialog(Form form)
-        {
-            if (form.ShowDialog(this) == DialogResult.OK)
-            {
-                form.Dispose();
-            }
-        }
-
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseWindowX = e.X + 1;
-            mouseWindowY = e.Y + 1;
-            label1.MouseMove += MainForm_MouseMove;
-            label1.MouseLeave += MainForm_MouseLeave;
+            label = (Label)sender;
+            if (label == label1)
+            {
+                mouseWindowX = e.X + 1;
+                mouseWindowY = e.Y + 1;
+            }
+            else
+            {
+                mouseWindowX = e.X + 93;
+                mouseWindowY = e.Y + 12;
+            }
+            label.MouseMove += MainForm_MouseMove;
+            label.MouseLeave += MainForm_MouseLeave;
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            label1.MouseMove -= MainForm_MouseMove;
-            label1.MouseLeave -= MainForm_MouseLeave;
+            label.MouseMove -= MainForm_MouseMove;
+            label.MouseLeave -= MainForm_MouseLeave;
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
-            label1.MouseMove -= MainForm_MouseMove;
-            label1.MouseLeave -= MainForm_MouseLeave;
+            label.MouseMove -= MainForm_MouseMove;
+            label.MouseLeave -= MainForm_MouseLeave;
         }
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)

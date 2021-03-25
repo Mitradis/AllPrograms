@@ -129,29 +129,6 @@ namespace AllPrograms
             cacheFile.Clear();
         }
 
-        public static void deleteKey(string path, string section, string key)
-        {
-            blockClearKE = true;
-            if (keyExists(path, section, key))
-            {
-                cacheFile.RemoveAt(lineIndex);
-                writeToFile(path, cacheFile);
-            }
-            cacheFile.Clear();
-        }
-
-        public static void writeToFile(string path, List<string> list)
-        {
-            try
-            {
-                File.WriteAllLines(path, list, new UTF8Encoding(false));
-            }
-            catch
-            {
-                MessageBox.Show("Не удалось записать файл: " + path);
-            }
-        }
-
         public static int intRead(string path, string section, string key)
         {
             return stringToInt(stringRead(path, section, key));
@@ -176,6 +153,29 @@ namespace AllPrograms
                 }
             }
             return value;
+        }
+
+        public static void deleteKey(string path, string section, string key)
+        {
+            blockClearKE = true;
+            if (keyExists(path, section, key))
+            {
+                cacheFile.RemoveAt(lineIndex);
+                writeToFile(path, cacheFile);
+            }
+            cacheFile.Clear();
+        }
+
+        public static void writeToFile(string path, List<string> list)
+        {
+            try
+            {
+                File.WriteAllLines(path, list, new UTF8Encoding(false));
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось записать файл: " + path);
+            }
         }
     }
 }
