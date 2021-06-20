@@ -23,8 +23,6 @@ namespace AllPrograms
         static string appINI = pathAppFolder + "AllPrograms.ini";
         string appDisk = Path.GetPathRoot(pathAppFolder);
         int totalFiles = 0;
-        int mouseWindowX = 0;
-        int mouseWindowY = 0;
         int formDefaultX = 522;
         int formDefaultY = 127;
         int iconPosX = 35;
@@ -37,8 +35,10 @@ namespace AllPrograms
         int maxItemsOnLine = 6;
         bool nextLine = false;
         bool windgetOpen = false;
+        bool labelVisible = true;
         const int CS_DBLCLKS = 0x8;
         const int WS_MINIMIZEBOX = 0x20000;
+        Point lastLocation;
         Label label = null;
 
         public FormMain()
@@ -57,6 +57,8 @@ namespace AllPrograms
             if (File.Exists(appINI))
             {
                 string titleName = FuncParser.stringRead(appINI, "General", "WindowTitleName");
+                labelVisible = FuncParser.stringRead(appINI, "General", "ShowTitle") == "true";
+                label2.Visible = labelVisible;
                 if (titleName != null)
                 {
                     Text = titleName;
@@ -411,7 +413,7 @@ namespace AllPrograms
         {
             ClientSize = new System.Drawing.Size(formDefaultX + ((maxItemsOnLine - 6) * offSetX), formDefaultY);
             label1.Size = new System.Drawing.Size(formDefaultX + ((maxItemsOnLine - 6) * offSetX), formDefaultY);
-            if (FuncParser.stringRead(appINI, "General", "ShowTitle") == "true")
+            if (labelVisible)
             {
                 if (maxItemsOnLine >= 3)
                 {
@@ -493,17 +495,8 @@ namespace AllPrograms
 
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
+            lastLocation = e.Location;
             label = (Label)sender;
-            if (label == label1)
-            {
-                mouseWindowX = e.X + 1;
-                mouseWindowY = e.Y + 1;
-            }
-            else
-            {
-                mouseWindowX = e.X + 93;
-                mouseWindowY = e.Y + 12;
-            }
             label.MouseMove += MainForm_MouseMove;
             label.MouseLeave += MainForm_MouseLeave;
         }
@@ -512,17 +505,19 @@ namespace AllPrograms
         {
             label.MouseMove -= MainForm_MouseMove;
             label.MouseLeave -= MainForm_MouseLeave;
+            label = null;
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
             label.MouseMove -= MainForm_MouseMove;
             label.MouseLeave -= MainForm_MouseLeave;
+            label = null;
         }
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            Location = new Point(Cursor.Position.X - mouseWindowX, Cursor.Position.Y - mouseWindowY);
+            Location = new Point((Location.X - lastLocation.X) + e.X, (Location.Y - lastLocation.Y) + e.Y);
         }
 
         private void button_Widget_Click(object sender, System.EventArgs e)

@@ -44,7 +44,7 @@
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(522, 127);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -61,7 +61,7 @@
             this.button_Close.Location = new System.Drawing.Point(485, 12);
             this.button_Close.Name = "button_Close";
             this.button_Close.Size = new System.Drawing.Size(25, 25);
-            this.button_Close.TabIndex = 0;
+            this.button_Close.TabIndex = 4;
             this.button_Close.UseVisualStyleBackColor = false;
             this.button_Close.Click += new System.EventHandler(this.button_Close_Click);
             this.button_Close.MouseEnter += new System.EventHandler(this.button_Close_MouseEnter);
@@ -80,7 +80,7 @@
             this.button_Minimize.Location = new System.Drawing.Point(454, 12);
             this.button_Minimize.Name = "button_Minimize";
             this.button_Minimize.Size = new System.Drawing.Size(25, 25);
-            this.button_Minimize.TabIndex = 1;
+            this.button_Minimize.TabIndex = 3;
             this.button_Minimize.UseVisualStyleBackColor = false;
             this.button_Minimize.Click += new System.EventHandler(this.button_Minimize_Click);
             this.button_Minimize.MouseEnter += new System.EventHandler(this.button_Minimize_MouseEnter);
@@ -98,7 +98,7 @@
             this.button_Widget.Location = new System.Drawing.Point(12, 12);
             this.button_Widget.Name = "button_Widget";
             this.button_Widget.Size = new System.Drawing.Size(25, 25);
-            this.button_Widget.TabIndex = 2;
+            this.button_Widget.TabIndex = 0;
             this.button_Widget.UseVisualStyleBackColor = false;
             this.button_Widget.Click += new System.EventHandler(this.button_Widget_Click);
             this.button_Widget.MouseEnter += new System.EventHandler(this.button_Widget_MouseEnter);
@@ -111,7 +111,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(43, 12);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(25, 25);
-            this.buttonAdd.TabIndex = 3;
+            this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "+";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Visible = false;
@@ -134,7 +134,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(38, 21);
-            this.numericUpDown1.TabIndex = 4;
+            this.numericUpDown1.TabIndex = 2;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
             6,
@@ -160,10 +160,9 @@
             this.label2.Location = new System.Drawing.Point(93, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(336, 25);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Shortcut Manager";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Visible = false;
             this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
             this.label2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 

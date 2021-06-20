@@ -37,7 +37,7 @@
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(157, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Название ярлыка:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
