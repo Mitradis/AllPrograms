@@ -503,16 +503,22 @@ namespace AllPrograms
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            label.MouseMove -= MainForm_MouseMove;
-            label.MouseLeave -= MainForm_MouseLeave;
-            label = null;
+            if (label != null)
+            {
+                label.MouseMove -= MainForm_MouseMove;
+                label.MouseLeave -= MainForm_MouseLeave;
+                label = null;
+            }
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
-            label.MouseMove -= MainForm_MouseMove;
-            label.MouseLeave -= MainForm_MouseLeave;
-            label = null;
+            if (label != null)
+            {
+                label.MouseMove -= MainForm_MouseMove;
+                label.MouseLeave -= MainForm_MouseLeave;
+                label = null;
+            }
         }
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
