@@ -34,7 +34,7 @@ namespace AllPrograms
         public FormMain()
         {
             InitializeComponent();
-            string[] allFolders = pathAppFolder.Split(new string[] { "/", @"\" }, StringSplitOptions.None);
+            string[] allFolders = pathAppFolder.Split(new string[] { "/", @"\" }, StringSplitOptions.RemoveEmptyEntries);
             separateAppPath.Add(pathAppFolder);
             if (allFolders.Length - 1 > 0)
             {
@@ -215,7 +215,7 @@ namespace AllPrograms
                 nextLine = false;
             }
             appID.Add(number);
-            string[] parseLine = !String.IsNullOrEmpty(line) ? line.Split(new string[] { "|" }, StringSplitOptions.None) : new string[] { "" };
+            string[] parseLine = !String.IsNullOrEmpty(line) ? line.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries) : new string[] { "" };
             if (parseLine.Length >= 3)
             {
                 if (parseLine[0][1].ToString() == "A")
