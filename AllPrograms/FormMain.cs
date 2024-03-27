@@ -123,9 +123,9 @@ namespace AllPrograms
             appLaunchPath.Clear();
             for (int i = 1; i <= totalFiles; i++)
             {
-                if (FuncParser.keyExists(appINI, "Files", "ShortcutFile_" + i.ToString()))
+                if (FuncParser.keyExists(appINI, "Files", "ShortcutFile_" + i))
                 {
-                    createShortcut(i, FuncParser.stringRead(appINI, "Files", "ShortcutFile_" + i.ToString()));
+                    createShortcut(i, FuncParser.stringRead(appINI, "Files", "ShortcutFile_" + i));
                 }
                 else
                 {
@@ -218,11 +218,11 @@ namespace AllPrograms
             string[] parseLine = !String.IsNullOrEmpty(line) ? line.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries) : new string[] { "" };
             if (parseLine.Length >= 3)
             {
-                if (parseLine[0][1].ToString() == "A")
+                if (parseLine[0][1] == 'A')
                 {
                     appLaunchPath.Add(parseLine[2]);
                 }
-                else if (parseLine[0][1].ToString() == "R")
+                else if (parseLine[0][1] == 'R')
                 {
                     appLaunchPath.Add(trimAppPath(FuncParser.stringToInt(parseLine[0][2].ToString())) + parseLine[2]);
                 }
@@ -242,14 +242,14 @@ namespace AllPrograms
             PictureBox newPictureBox = new PictureBox();
             newPictureBox.BackColor = System.Drawing.Color.Transparent;
             newPictureBox.Location = new System.Drawing.Point(iconPosX, iconPosY);
-            newPictureBox.Name = "NewPictureBox_" + number.ToString();
+            newPictureBox.Name = "NewPictureBox_" + number;
             newPictureBox.Size = new System.Drawing.Size(32, 32);
             newPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
             newPictureBox.Tag = number;
             newPictureBox.DoubleClick += clickItem;
             if (parseLine.Length >= 3)
             {
-                if (parseLine[0][0].ToString() == "F")
+                if (parseLine[0][0] == 'F')
                 {
                     Image image = iconFromFile(appLaunchPath[appLaunchPath.Count - 1]);
                     if (image.Width > 32 || image.Height > 32)
@@ -258,7 +258,7 @@ namespace AllPrograms
                     }
                     newPictureBox.BackgroundImage = image;
                 }
-                else if (parseLine[0][0].ToString() == "D")
+                else if (parseLine[0][0] == 'D')
                 {
                     newPictureBox.BackgroundImage = Properties.Resources.folder;
                 }
@@ -274,7 +274,7 @@ namespace AllPrograms
             newLabel.BackColor = System.Drawing.Color.Transparent;
             newLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             newLabel.Location = new System.Drawing.Point(labelPosX, labelPosY);
-            newLabel.Name = "NewLabel_" + number.ToString();
+            newLabel.Name = "NewLabel_" + number;
             newLabel.Size = new System.Drawing.Size(78, 30);
             newLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             if (parseLine.Length >= 3)
@@ -349,13 +349,13 @@ namespace AllPrograms
                     {
                         if (i != id)
                         {
-                            tempList.Add(FuncParser.stringRead(appINI, "Files", "ShortcutFile_" + i.ToString()));
+                            tempList.Add(FuncParser.stringRead(appINI, "Files", "ShortcutFile_" + i));
                         }
-                        FuncParser.deleteKey(appINI, "Files", "ShortcutFile_" + i.ToString());
+                        FuncParser.deleteKey(appINI, "Files", "ShortcutFile_" + i);
                     }
                     for (int i = 0; i < tempList.Count; i++)
                     {
-                        FuncParser.iniWrite(appINI, "Files", "ShortcutFile_" + (i + 1).ToString(), tempList[i]);
+                        FuncParser.iniWrite(appINI, "Files", "ShortcutFile_" + (i + 1), tempList[i]);
                     }
                     totalFiles = tempList.Count;
                     FuncParser.iniWrite(appINI, "General", "TotalFiles", totalFiles.ToString());
@@ -395,7 +395,7 @@ namespace AllPrograms
         void addFileToINI(string line)
         {
             totalFiles++;
-            FuncParser.iniWrite(appINI, "Files", "ShortcutFile_" + totalFiles.ToString(), line);
+            FuncParser.iniWrite(appINI, "Files", "ShortcutFile_" + totalFiles, line);
             createShortcut(totalFiles, line);
             FuncParser.iniWrite(appINI, "General", "TotalFiles", totalFiles.ToString());
         }
